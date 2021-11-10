@@ -1,4 +1,5 @@
 %global ananicycppver 1.0.0-rc4
+%global ananicycpp ananicy-cpp-%{ananicycppver}
 %global ananicyver 2.2.1
 
 Name:    ananicy-enhanced
@@ -24,8 +25,8 @@ original ananicy project.
 
 %prep
 
-%setup
-%setup -T -D -a 1
+%setup -n %{ananicycpp}
+%setup -T -D -a 1 -n %{ananicycpp}
 
 
 %build
