@@ -1,5 +1,5 @@
 %global ananicycppver 1.0.0-rc4
-%global ananicycpp ananicy-cpp-%{ananicycppver}
+%global ananicycpp ananicy-cpp-v%{ananicycppver}
 %global ananicyver 2.2.1
 
 Name:    ananicy-enhanced
@@ -10,7 +10,7 @@ Summary: The runtime of ananicy-cpp with the rules from the original ananicy.
 Group:   System Environment/Daemons
 License: GPL-3.0
 URL:     https://gitlab.com/ananicy-cpp/ananicy-cpp/
-Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/ananicy-cpp-v%{ananicycppver}.zip
+Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/%{ananicycpp}.zip
 Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.zip
 
 BuildArch:     x86_64
