@@ -11,15 +11,14 @@ Release: 1%{?dist}
 Summary: The runtime of ananicy-cpp with the rules from the original ananicy.
 
 Group:   System Environment/Daemons
-License: GPL-3.0
+License: GPLv3
 URL:     https://gitlab.com/ananicy-cpp/ananicy-cpp/
-Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/%{ananicycpp}.zip
-Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.zip
-Source2: https://github.com/nlohmann/json/archive/refs/tags/v%{jsonver}.zip
-Source3: https://github.com/fmtlib/fmt/archive/refs/tags/%{fmtlibver}.zip
-Source4: https://github.com/gabime/spdlog/archive/refs/tags/v%{spdlogver}.zip
+Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/%{ananicycpp}.tar.gz
+Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.tar.gz
+Source2: https://github.com/nlohmann/json/archive/refs/tags/v%{jsonver}.tar.gz
+Source3: https://github.com/fmtlib/fmt/archive/refs/tags/%{fmtlibver}.tar.gz
+Source4: https://github.com/gabime/spdlog/archive/refs/tags/v%{spdlogver}.tar.gz
 
-BuildArch: noarch
 BuildRequires: cmake
 BuildRequires: g++
 BuildRequires: git
@@ -38,18 +37,24 @@ original ananicy project.
 %setup -q -T -D -a 2 -n %{ananicycpp}
 %setup -q -T -D -a 3 -n %{ananicycpp}
 %setup -q -T -D -a 4 -n %{ananicycpp}
-mv v%{jsonver} nlohmann_json-%{jsonver}
-mv %{fmtlibver} fmt-%{fmtlibver}
-mv v%{spdlogver} spdlog-%{spdlogver}
 
 %build
-%cmake -DENABLE_SYSTEMD=yes -DUSE_EXTERNAL_JSON=yes -DUSE_EXTERNAL_SPDLOG=yes -DUSE_EXTERNAL_FMTLIB=yes
+%cmake -DENABLE_SYSTEMD=yes \
+-DUSE_EXTERNAL_JSON=yes -Djson_DIR=json-%{jsonver}\
+-DUSE_EXTERNAL_SPDLOG=yes -Dspdlog_DIR=spdlog-%{spdlogver}\
+-DUSE_EXTERNAL_FMTLIB=yes -Dfmt_DIR=fmt-%{fmtlibver}
 %cmake_build
 
 %install
 %cmake_install
+mkdir -p %{buildroot}%{_sysconfdir}
+cp -a Ananicy-%{ananicyver}/ananicy.d %{buildroot}%{_sysconfdir}
 
+%files
 %license LICENSE
+%{_bindir}/ananicy-cpp
+%{_unitdir}/ananicy-cpp.service
+%{_sysconfdir}/*
 
 %changelog
 * Wed Nov 10 2021 Harold Dost <github@hdost.com> 1.0.0-rc4+2.1.1-1
