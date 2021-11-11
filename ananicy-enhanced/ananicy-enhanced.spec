@@ -40,7 +40,7 @@ original ananicy project.
 
 %build
 %cmake -DENABLE_SYSTEMD=yes \
--DUSE_EXTERNAL_JSON=yes -Djson_DIR=json-%{jsonver} -Dnlohmann_json_DIR=json-%{jsonver}\
+-DUSE_EXTERNAL_JSON=yes -Dnlohmann_json_DIR=json-%{jsonver}\
 -DUSE_EXTERNAL_SPDLOG=yes -Dspdlog_DIR=spdlog-%{spdlogver}\
 -DUSE_EXTERNAL_FMTLIB=yes -Dfmt_DIR=fmt-%{fmtlibver}
 %cmake_build
