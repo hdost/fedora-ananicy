@@ -15,6 +15,8 @@ Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.z
 
 BuildArch:     x86_64
 BuildRequires: cmake
+BuildRequires: g++
+BuildRequires: git
 BuildRequires: systemd-devel
 Requires:      systemd
 
