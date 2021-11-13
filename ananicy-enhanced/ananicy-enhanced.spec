@@ -16,14 +16,12 @@ URL:     https://gitlab.com/ananicy-cpp/ananicy-cpp/
 Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/%{ananicycpp}.tar.gz
 Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.tar.gz
 Source2: https://github.com/nlohmann/json/archive/refs/tags/v%{jsonver}.tar.gz
-Source3: https://github.com/fmtlib/fmt/archive/refs/tags/%{fmtlibver}.tar.gz
-Source4: https://github.com/gabime/spdlog/archive/refs/tags/v%{spdlogver}.tar.gz
 
 BuildRequires: cmake
 BuildRequires: g++
 BuildRequires: git
-BuildRequires: systemd-devel
-Requires:      systemd
+BuildRequires: systemd-devel fmt-devel spdlog-devel
+Requires:      systemd fmt spdlog
 
 %description
 ananicy-cpp is a rewrite of ananicy in C++ which targets lower CPU/Memory usage.
@@ -35,14 +33,15 @@ original ananicy project.
 %setup -q -n %{ananicycpp}
 %setup -q -T -D -a 1 -n %{ananicycpp}
 %setup -q -T -D -a 2 -n %{ananicycpp}
-%setup -q -T -D -a 3 -n %{ananicycpp}
-%setup -q -T -D -a 4 -n %{ananicycpp}
 
 %build
+%define work_dir %{_buildrootdir}/%{ananicycpp}
+%define json_dir %{work_dir}/json-%{jsonver}
+cd %{json_dir}
+cmake -S %{json_dir} -B %{json_dir}
+cd %{work_dir}
 %cmake -DENABLE_SYSTEMD=yes \
--DUSE_EXTERNAL_JSON=yes -Dnlohmann_json_DIR=json-%{jsonver}\
--DUSE_EXTERNAL_SPDLOG=yes -Dspdlog_DIR=spdlog-%{spdlogver}\
--DUSE_EXTERNAL_FMTLIB=yes -Dfmt_DIR=fmt-%{fmtlibver}
+-DUSE_EXTERNAL_JSON=ON -Dnlohmann_json_DIR=%{json_dir} \
 %cmake_build
 
 %install
