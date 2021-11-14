@@ -20,8 +20,8 @@ Source2: https://github.com/nlohmann/json/archive/refs/tags/v%{jsonver}.tar.gz
 BuildRequires: cmake
 BuildRequires: g++
 BuildRequires: git
-BuildRequires: systemd-devel fmt-devel spdlog-devel
-Requires:      systemd fmt spdlog
+BuildRequires: systemd-devel fmt-devel spdlog-devel libubsan
+Requires:      systemd fmt spdlog libubsan
 
 %description
 ananicy-cpp is a rewrite of ananicy in C++ which targets lower CPU/Memory usage.
