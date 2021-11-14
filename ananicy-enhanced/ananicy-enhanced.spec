@@ -17,10 +17,9 @@ Source0: https://gitlab.com/ananicy-cpp/ananicy-cpp/-/archive/v%{ananicycppver}/
 Source1: https://github.com/Nefelim4ag/Ananicy/archive/refs/tags/%{ananicyver}.tar.gz
 Source2: https://github.com/nlohmann/json/archive/refs/tags/v%{jsonver}.tar.gz
 
-BuildRequires: cmake
-BuildRequires: g++
-BuildRequires: git
+BuildRequires: cmake g++ git
 BuildRequires: systemd-devel fmt-devel spdlog-devel libubsan
+BuildRequires: systemd-rpm-macros
 Requires:      systemd fmt spdlog libubsan
 
 %description
@@ -55,6 +54,15 @@ cp -a Ananicy-%{ananicyver}/ananicy.d %{buildroot}%{_sysconfdir}
 %{_bindir}/ananicy-cpp
 %{_unitdir}/ananicy-cpp.service
 %{_sysconfdir}/*
+
+%post
+%systemd_post ananicy-cpp.service
+
+%preun
+%systemd_preun ananicy-cpp.service
+
+%postun
+%systemd_postun_with_restart ananicy-cpp.service
 
 %changelog
 * Wed Nov 10 2021 Harold Dost <github@hdost.com> 1.0.0-rc4+2.1.1-1
