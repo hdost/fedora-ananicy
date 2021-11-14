@@ -42,6 +42,7 @@ cmake -S %{json_dir} -B %{json_dir}
 cd %{work_dir}
 %cmake -DENABLE_SYSTEMD=yes \
 -DUSE_EXTERNAL_JSON=ON -Dnlohmann_json_DIR=%{json_dir} \
+-DUSE_EXTERNAL_FMTLIB=ON -DUSE_EXTERNAL_SPDLOG=ON
 %cmake_build
 
 %install
