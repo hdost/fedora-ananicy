@@ -35,7 +35,7 @@ original ananicy project.
 %setup -q -T -D -a 2 -n %{ananicycpp}
 
 %build
-%define work_dir %{_buildrootdir}/%{ananicycpp}
+%define work_dir %{_builddir}/%{ananicycpp}
 %define json_dir %{work_dir}/json-%{jsonver}
 cd %{json_dir}
 cmake -S %{json_dir} -B %{json_dir}
